@@ -5,7 +5,7 @@ class ProjectsController < ApplicationController
 	end
 
 	def show
-		@project = Project.find(params[:id])
+		@project = Project.find(params[:id])#paramsでidを取得
 	end
 
 	def new
@@ -32,6 +32,12 @@ class ProjectsController < ApplicationController
 		else
 			render 'edit'
 		end
+	end
+
+	def destroy
+		@project = Project.find(params[:id])
+		@project.destroy
+		redirect_to projects_path
 	end
 
 	private #フィルタリングのために必要
