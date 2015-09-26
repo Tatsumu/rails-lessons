@@ -1,1 +1,25 @@
 <h1><%= @project.title %></h1>
+
+<ul>
+<% @project.tasks.each do |task| %>
+<li>
+	<%= check_box_tag '', '', task.done,{'data-id' => task.id, 'data-project_id' => task.project_id} %>
+	<%= task.title %>
+	<%= link_to "[Delete]",project_task_path(task.project_id, task.id),method: :delete, data:{confirm: "are you sure?" } %>
+</li>
+<% end %>
+<li>
+	<!-- 新規作成フォーム -->
+	<%= form_for [@project, @project.tasks.build] do |f| %>
+	<%= f.text_field :title %><!-- テキスト入力欄 -->
+	<%= f.submit %><!-- submitボタン -->
+	<% end %>
+</li>
+</ul>
+
+<script>
+$(function(){
+	$("input[type=checkbox]").click(function(){
+		$.post('/projects/xxx/tasks/xxx/toggle');
+	});
+});
